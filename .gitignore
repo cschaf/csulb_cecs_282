@@ -1,0 +1,6 @@
+build*/
+Leon/
+testing/
+/*/*.zip
+/*/*.pro.user
+/*/*.pro
