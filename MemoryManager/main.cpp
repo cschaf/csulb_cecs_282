@@ -3,9 +3,15 @@
 using namespace std;
 
 int main()
-{
-    const int max = 40;
-    int *ql = (int*)allocate(sizeof(int) * max);
+{    
+    // Problems
+    // I dont know the size of a block
+    // we need links (double linked list, one element knows his next and previous)
+    //
+
+    initializeMemoryManager();
+    int start = freeMemory(); // 65530
+    short* shortPtr = (short*)allocate(sizeof(short));
 
     return 0;
 }
