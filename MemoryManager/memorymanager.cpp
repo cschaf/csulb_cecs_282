@@ -1,7 +1,13 @@
 #include "MemoryManager.h"
 #include <iostream>
 #include <iomanip>
-
+/**
+Class:    CECS 282 C++ for Java Developer
+Filename: MemoryManager.cpp
+Purpose:  Program to allocate and deallocate memory
+@author Christian Schaf
+@version 1.0 12/08/16
+*/
 using namespace std;
 
 namespace MemoryManager
