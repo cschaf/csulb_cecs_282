@@ -138,13 +138,13 @@ namespace MemoryManager
         unsigned short *usedPtr = (unsigned short*)(MM_pool + (*(unsigned short*)(MM_pool + 4)));
         int used = (*(unsigned short*)(MM_pool + 4));
         unsigned short *currentNode = ((unsigned short*) aPointer) - 3;
-        unsigned short *prevNode = (unsigned short*)(MM_pool + *(currentNode + 2));
-        unsigned short *nextNode = (unsigned short*)(MM_pool + *(currentNode + 1));
+        unsigned short *prevLink = (unsigned short*)(MM_pool + *(currentNode + 2));
+        unsigned short *nextLink = (unsigned short*)(MM_pool + *(currentNode + 1));
 
         if (*((unsigned short*)(MM_pool + 4)) == 0){
-            *(unsigned short*)(MM_pool + 4) = *(prevNode + 1);
-            *(prevNode + 1) = *(currentNode + 1);
-            *(nextNode + 2) = *(currentNode + 2);
+            *(unsigned short*)(MM_pool + 4) = *(prevLink + 1);
+            *(prevLink + 1) = *(currentNode + 1);
+            *(nextLink + 2) = *(currentNode + 2);
             *(currentNode + 2) = 0;
             *(currentNode + 1) = 0;
         }
@@ -157,20 +157,20 @@ namespace MemoryManager
             }
             else{
                 if (*(currentNode + 2) != 0){
-                    *(unsigned short*)(MM_pool + 4) = *(prevNode + 1);
-                    *(prevNode + 1) = *(currentNode + 1);
+                    *(unsigned short*)(MM_pool + 4) = *(prevLink + 1);
+                    *(prevLink + 1) = *(currentNode + 1);
                 }
                 else{
                     *(unsigned short*)(MM_pool + 2) = *(currentNode + 1);
-                    *(unsigned short*)(MM_pool + 4) = *(nextNode + 2);
+                    *(unsigned short*)(MM_pool + 4) = *(nextLink + 2);
 
                 }
                 *(usedPtr + 2) = *(unsigned short*)(MM_pool + 4);
                 if (*(currentNode + 1) != 0){
-                    *(nextNode + 2) = *(currentNode + 2);
+                    *(nextLink + 2) = *(currentNode + 2);
                 }
                 else{
-                    *(prevNode + 1) = *(currentNode + 1);
+                    *(prevLink + 1) = *(currentNode + 1);
                 }
                 *(currentNode + 1) = used;
                 *(currentNode + 2) = 0;
@@ -209,7 +209,7 @@ namespace MemoryManager
                 currentNode = (unsigned short*)(MM_pool + *(currentNode + 1));
             }
         }
-        return size + counter*6;
+        return size + counter * 6;
     }
 
     // Will scan the memory pool and return the total in use memory
@@ -219,24 +219,19 @@ namespace MemoryManager
         int size = 0;
         unsigned short *currentNode = (unsigned short*)(MM_pool + *(unsigned short*)(MM_pool + 2));
 
-        if (*(unsigned short*)(MM_pool + 2) == 0){
-            return size;
-        }
+        if (*(unsigned short*)(MM_pool + 2) == 0)return size;
         else{
             while (true){
                 size += *(currentNode);
                 counter++;
-                if (*(currentNode + 1) == 0){
-                    break;
-                }
+                if (*(currentNode + 1) == 0)break;
                 currentNode = (unsigned short*)(MM_pool + *(currentNode + 1));
             }
         }
-        return size + counter*6;
+        return size + counter * 6;
     }
 
-    void onOutOfMemory()
-    {
+    void onOutOfMemory(){
         std::cout<<"Out of memory!"<<std::endl;
     }
 
