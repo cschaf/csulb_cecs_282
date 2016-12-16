@@ -14,7 +14,7 @@ date::date(int m, int d, int y)
 
 date::~date()
 {
-    delete datePtr;
+    delete []datePtr;
 }
 
 ostream & operator <<(ostream &out, const date &d)
