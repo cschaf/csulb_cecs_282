@@ -37,7 +37,7 @@ void bike::operator =(bike b){
     this->gear = b.gear;
 }
 
-bike bike::operator++(int dummy){
+bike bike::operator ++(int dummy){
     bike temp(*this);
     this->gear += 1;
     return temp;
